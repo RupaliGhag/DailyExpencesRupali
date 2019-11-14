@@ -34,7 +34,6 @@ public class userServlet extends HttpServlet {
 		
 		 boolean i=ud.addUser(u);
 		 
-		 
 		 if(i)
 		 {
 			 response.sendRedirect("login.jsp");

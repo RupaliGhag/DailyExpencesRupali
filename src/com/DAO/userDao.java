@@ -63,6 +63,34 @@ public class userDao {
 		
 	}
 	
+	public List<userpojo> getUserListById()
+	{
+		String sql="select * from newuser where email=?";
+		List <userpojo>li=new ArrayList<userpojo>();
+		try {
+			PreparedStatement ps=con.prepareStatement(sql);
+		
+		ResultSet rs=ps.executeQuery();
+		while(rs.next())
+		{
+			userpojo u=new userpojo();
+			u.setName(rs.getString(1));
+			u.setEmail(rs.getString(2));
+			u.setContact(rs.getString(3));
+			u.setPassword(rs.getString(4));
+			li.add(u);
+		}
+		
+			return li;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	
 	public boolean deleteUser(String email)
 	{
 		String sql="delete from user where email=?";
