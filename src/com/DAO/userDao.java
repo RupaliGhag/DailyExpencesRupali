@@ -3,6 +3,7 @@ package com.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,29 @@ import com.POJO.userpojo;
 
 public class userDao {
 	Connection con=DBConnection.getConnect();
+	public userpojo getLogin(String username,String password)
+	{
+		String sql="select email, password fron newuser where email=?,password=?";
+		userpojo u=new userpojo();
+		try {
+			PreparedStatement ps=con.prepareStatement(sql);
+			ps.setString(1, username);
+			ps.setString(2, password);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				u.setEmail(rs.getString(1));
+				u.setPassword(rs.getString(2));
+				
+			}
+			return u;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
 	
 	public boolean addUser(userpojo u)
 	{
